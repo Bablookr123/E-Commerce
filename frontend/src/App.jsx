@@ -12,6 +12,12 @@ import ProductCategory from "./pages/ProductCategory";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
 import AddAddress from "./pages/AddAddress";
+import SellerLogin from "./components/seller/SellerLogin";
+import SellerLayout from "./pages/seller/SellerLayout";
+import AddProduct from "./pages/seller/AddProduct";
+import ProductList from "./pages/seller/ProductList";
+import Orders from "./pages/seller/Orders";
+
 
 
 const App = () => {
@@ -31,6 +37,12 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/add-address" element={<AddAddress/>} />
+          <Route path="/seller" element={isSeller ? <SellerLayout /> : <SellerLogin />} >
+          <Route index element={isSeller ? <AddProduct /> : null} />
+          <Route path="product-list" element={isSeller ? <ProductList /> : null} />
+          <Route path="orders" element={isSeller ? <Orders /> : null} />
+  
+          </Route>
         </Routes>
       </div>
       {isSellerPath ? null : <Footer />}
