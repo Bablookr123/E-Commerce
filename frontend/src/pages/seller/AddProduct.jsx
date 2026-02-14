@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { assets, categories } from "../../assets/assets";
+import {AppContext} from "../../context/AppContext"
+import { useContext } from "react";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
+  const {axios} = useContext(AppContext);
   const [files, setFiles] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -10,12 +14,39 @@ const AddProduct = () => {
   const [offerPrice, setOfferPrice] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("category", category);
+      formData.append("price", price);
+      formData.append("offerPrice", offerPrice);
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("image", files[i]);
+      }
+
+      const { data } = await axios.post("/api/product/add-product", formData);
+      if (data.success) {
+        toast.success(data.message);
+        setName("");
+        setDescription("");
+        setCategory("");
+        setPrice("");
+        setOfferPrice("");
+        setFiles([]);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
     <div className="py-10 flex flex-col justify-between bg-white">
-      <form onsubmit={handleSubmit} className="md:p-10 p-4 space-y-5 max-w-lg">
+      <form onSubmit={handleSubmit} className="md:p-10 p-4 space-y-5 max-w-lg">
         <div>
           <p className="text-base font-medium">Product Image</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">

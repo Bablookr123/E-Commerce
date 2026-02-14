@@ -1,8 +1,7 @@
-import {  useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
-
 
 const ProductDetails = () => {
   const { products, navigate, addToCart } = useContext(AppContext);
@@ -11,12 +10,12 @@ const ProductDetails = () => {
   const product = products.find((product) => product._id === id);
 
   useEffect(() => {
-  setThumbnail(product?.image[0] ? product.image[0] : null);
-}, [product]);
+    setThumbnail(product?.image[0] ? product.image[0] : null);
+  }, [product]);
 
-useEffect(() => {
-  window.scrollTo(0, 0);
-}, [id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   return (
     product && (
@@ -36,17 +35,20 @@ useEffect(() => {
               {product.image.map((image, index) => (
                 <div
                   key={index}
-                  onClick={() => setThumbnail(image)}
+                  onClick={() => setThumbnail(`http://localhost:5000/images/${image}`)}
                   className="border max-w-24 border-gray-500/30 rounded overflow-hidden cursor-pointer"
                 >
-                  <img src={image} alt={`Thumbnail ${index + 1}`} />
+                 <img
+                    src={`http://localhost:5000/images/${image}`}
+                    alt={`Thumbnail ${index + 1}`}
+                  />
                 </div>
               ))}
             </div>
 
             <div className="border border-gray-500/30 max-w-100 rounded overflow-hidden">
               <img
-                src={thumbnail}
+                src={`http://localhost:5000/images/${thumbnail}`}
                 alt="Selected product"
                 className="w-full h-full object-cover"
               />
@@ -59,15 +61,18 @@ useEffect(() => {
             <div className="flex items-center gap-0.5 mt-1">
               {Array(5)
                 .fill("")
-                .map((_, i) => product.rating >
-                 (
-                  <img 
-                    src={i<4 ? assets.star_icon : assets.star_dull_icon}
-                    alt="star"
-                    key={i}
-                    className="w-3.5 md:w-4"
-                  />
-                ))}
+                .map(
+                  (_, i) =>
+                    product.rating >
+                    (
+                      <img
+                        src={i < 4 ? assets.star_icon : assets.star_dull_icon}
+                        alt="star"
+                        key={i}
+                        className="w-3.5 md:w-4"
+                      />
+                    ),
+                )}
 
               <p className="text-base ml-2">(4)</p>
             </div>
@@ -88,7 +93,7 @@ useEffect(() => {
             </ul>
 
             <div className="flex items-center mt-10 gap-4 text-base">
-              <button
+             <button
                 onClick={() => addToCart(product._id)}
                 className="w-full py-3.5 cursor-pointer font-medium bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition"
               >
@@ -96,10 +101,10 @@ useEffect(() => {
               </button>
               <button
                 onClick={() => {
-  addToCart(product._id);
-  navigate("/cart");
-  scrollTo(0, 0);
-}}
+                  addToCart(product._id);
+                  navigate("/cart");
+                  scrollTo(0, 0);
+                }}
                 className="w-full py-3.5 cursor-pointer font-medium bg-indigo-500 text-white hover:bg-indigo-600 transition"
               >
                 Buy now

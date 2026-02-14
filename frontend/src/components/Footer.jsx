@@ -20,8 +20,8 @@ const Footer = () => {
         <div className="py-16 px-6 md:px-16 lg:px-24 xl:px-32">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
                 <div>
-                    <h2 className='font-semibold text-2xl md:text-3xl text-gray-900'>Grocery App</h2>
-                    <p className='text-sm md:text-base mt-2'>lorem ipsum dolar sit consecteur adipisicing elit ,quaerat,quas</p>
+                    <h2 className='font-semibold text-2xl md:text-3xl text-gray-900'>GreenBasket</h2>
+                    <p className='text-sm md:text-base mt-2'>Fresh groceries delivered to your doorstep with quality you can trust. We bring farm-fresh fruits, vegetables, and daily essentials at the best prices, with fast and reliable delivery.</p>
                 </div>
                 <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5">
                     {linkSections.map((section, index) => (
