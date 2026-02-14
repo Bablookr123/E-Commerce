@@ -14,14 +14,12 @@ const Auth = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      // ✅ correct endpoint
+    try { 
       const url =
         state === "login"
           ? "/api/user/login"
           : "/api/user/register";
 
-      // ✅ correct payload
       const payload =
         state === "login"
           ? { email, password }
@@ -130,3 +128,4 @@ const Auth = () => {
 };
 
 export default Auth;
+
